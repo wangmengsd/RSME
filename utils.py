@@ -2,8 +2,10 @@ import numpy as np
 import os
 import random
 import pickle
+import math
 
-def get_img_vec_array(proportion,img_vec_path='fb15k_vit.pickle',eutput_file='/home/syh/MMKG/img_vec_id_fb15k_{}_vit.pickle',dim=1000):
+
+def get_img_vec_array(proportion,img_vec_path='fb15k_vit.pickle',eutput_file='img_vec_id_fb15k_{}_vit.pickle',dim=1000):
     img_vec=pickle.load(open(img_vec_path,'rb'))
     img_vec={k.split('/')[-2]:v for k,v in img_vec.items()}
     f=open('./data/FB15K_{}/ent_id'.format(proportion),'r')
@@ -61,6 +63,37 @@ def get_img_vec_array_forget(proportion,remember_proportion,rank_file='fb15k_vit
         pickle.dump(rel_id_pd,out)
 
 
+def get_img_vec_sig_alpha(proportion,rank_file='fb15k_vit_rank.txt',eutput_file='rel_MPR_SIG_vit_{}.pickle'):
+    with open(rank_file,'r') as f:
+        Ranks=f.readlines()
+        rel_rank={}
+        for r in Ranks:
+            try:
+                rel,mrp=r.strip().split('\t')
+            except Exception as e:
+                print(e)
+                print(r)
+                continue
+            rel_rank[rel[10:]]=float(mrp[12:])
+
+    with open('./data/FB15K_{}/rel_id'.format(proportion),'r') as f:
+        Lines=f.readlines()
+
+    rel_sig_alpha=[]
+    for l in Lines:
+        rel,_=l.strip().split()
+        try:
+            rel_sig_alpha.append([1/(1+math.exp(rel_rank[rel]))])
+        except Exception as e:
+            print(e)
+            rel_sig_alpha.append([1 / (1 + math.exp(1))])
+            continue
+
+    rel_id_pd=np.array(rel_sig_alpha)
+
+    with open(eutput_file.format(proportion),'wb') as out:
+        pickle.dump(rel_id_pd,out)
+
 def sample(proportion,data_path='./src_data/FB15K'):
     with open(data_path+'/train') as f:
         Ls=f.readlines()
@@ -105,47 +138,14 @@ def sample(proportion,data_path='./src_data/FB15K'):
                 print(l.strip()+' pass')
 
 if __name__ == '__main__':
-    pass
-    # get_img_vec_array_forget(30, 20)
+    sample(0.2)
+    get_img_vec_array(20)
+    get_img_vec_sig_alpha(20)
+    get_img_vec_array_forget(30, 20)
+
+
     # sample(0.3)
     # get_img_vec_array(30)
 
 
 
-
-# sc_img_vec_id()
-
-
-#
-# chouqu(0.03)
-# chouqu(0.05)
-# chouqu(0.07)
-# chouqu(0.1)
-# chouqu(0.15)
-#
-# sc_img_vec_id(3)
-#
-#
-# sc_img_vec_id(5)
-#
-# sc_img_vec_id(7)
-#
-# sc_img_vec_id(15)
-
-# chouqu(0.1)
-# sc_img_vec_id_forget(100,20)
-
-# chouqu(0.01)
-
-# sc_img_vec_id(100)
-
-# chouqu(1)
-
-# sc_img_vec_id(100)
-# sc_img_vec_id_forget(60,20)
-# sc_img_vec_id_forget(80,20)
-# sc_img_vec_id_forget(40,20)
-# sc_img_vec_id_forget(5,20)
-# sc_img_vec_id_forget(7,20)
-# sc_img_vec_id_forget(15,20)
-# sc_img_vec_id_forget(20,5)

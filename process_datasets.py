@@ -97,7 +97,7 @@ def prepare_dataset(path, name):
 
 
 if __name__ == "__main__":
-    datasets = ['FB15K', 'WN', 'WN18RR', 'FB237', 'YAGO3-10','FB15K_30']
+    datasets = ['FB15K', 'WN', 'WN18RR', 'FB237', 'YAGO3-10','FB15K_30','FB15K_20']
     for d in datasets:
         print("Preparing dataset {}".format(d))
         try:
