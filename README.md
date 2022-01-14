@@ -10,9 +10,9 @@ FB15K is a widely used dataset in KG embedding extracted from Freebase. You can 
 
 **WN18-IMG：**
 
-WN18-IMG is an extended dataset of WN18 [4] which prepares 10 images for each entity. 由于版权原因，本文无法直接给出图片。你可以通过如下方法获取WN18-IMG。
+WN18-IMG is an extended dataset of WN18 [4] which prepares 10 images for each entity. Due to copyright reasons, it is not possible to give images directly in this article. You can obtain WN18-IMG by the following methods.
 
-WordNet 中的实体图片可以从ImageNet中获取，具体的实体图片地址可以从[Dolt](https://github.com/dolthub/dolt)中获得。具体步骤如下
+Entity images in WN18 can be obtained from ImageNet, and the specific entity image addresses can be obtained from [Dolt](https://github.com/dolthub/dolt). The specific steps are as follows:
 
 1.Install Dolt
 
@@ -59,9 +59,7 @@ python ./tools/image_downloader.py --output_dir=./data/wn8 --entLinks=./data/ent
 
 
 ## Image Encoder
-
-本项目实现了4种image Encoder，分别是Vision Transformer、Resnet50、VGG16、PHash。你能从image_encoder.py中使用他们。
-
+This project implements 4 types of image Encoder, Vision Transformer, Resnet50, VGG16, PHash. you can use them from image_encoder.py.
 ```/
 conda install pytorch-gpu
 pip install pytorch_pretrained_vit
