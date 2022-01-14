@@ -2,7 +2,7 @@
 
 **WN18：**
 
-WN18 is a well-known KG which is originally extracted from WordNet. You can download [here](https://github.com/DeepGraphLearning/KnowledgeGraphEmbedding/tree/master/data/wn18).
+WN18 is a well-known KG which is originally extracted from WordNet. You can download [here](https://github.com/DeepGraphLearning/KnowledgeGraphEmbedding/tree/master/data/wn18) or [here](https://github.com/thunlp/IKRL).
 
 **FB15K:**
 
@@ -42,7 +42,6 @@ conda activate RSME
 conda install pymysql
 conda install requests
 conda install Pillow
-
 ```
 
 5.Run export scripts
@@ -69,16 +68,10 @@ python image_encoder.py
 
 ## Filter Gate：
 
-The filter gate serves to filter images from the dataset level which are potentially incorrect, and it is implemented infilter_gate.py
+The filter gate serves to filter images from the dataset level which are potentially incorrect, and it is implemented infilter_gate.py.
 
 
 MRP：
-
-## Experiments
-
-tools.py
+MRP is used to calculate the importance of pictures to relations, which is implemented in MRP.py.
 
 
-```/
-conda install matplotlib
-```
